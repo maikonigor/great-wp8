@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="App2.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App2"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="mainContent">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200" Margin="120,229,80,211">
+
+            <TextBlock Text="MAGIC NUMBER" FontSize="18"  Padding="0,0,20,0" VerticalAlignment="top" HorizontalAlignment="Center" FontWeight="Bold" Margin="28,0,10,0" RenderTransformOrigin="0.213,0.526"/>
+            <Border BorderBrush="{ StaticResource ApplicationForegroundThemeBrush }" BorderThickness="1" Height="100" Margin="-12,50,0,50">
+                <TextBlock Text=" - -" x:Name="numberBox" Width="60" Height="30" TextAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+            </Border>
+            <Button x:ConnectionId='1' x:Name="btCreate" Content="Create New" FontSize="18"                     Margin="38,152,0,-9" />
+            <Button x:ConnectionId='2' x:Name="btCancel" Content="Cancel" FontSize="18"                        Margin="38,152,0,-9" Visibility="Collapsed" />
+        </Grid>
+        <ProgressBar x:Name="ProgressBar" Visibility="Collapsed" IsIndeterminate="True" />
+    </Grid>
+</Page>
+
