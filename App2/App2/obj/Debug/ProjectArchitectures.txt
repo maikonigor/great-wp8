@@ -1,1 +1,1 @@
-C:\Users\maikon\documents\visual studio 2013\Projects\App2\App2\App2.csproj;neutral
+C:\Users\maikon\Documents\git\great-wp8\App2\App2\App2.csproj;neutral

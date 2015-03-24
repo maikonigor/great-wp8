@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,12 +25,14 @@ namespace App2
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        DojoLib.MagicNumberCreator creator;
         
         public MainPage()
         {
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
+            creator = new DojoLib.MagicNumberCreator();
         }
 
         /// <summary>
@@ -53,27 +56,31 @@ namespace App2
             btCreate.Visibility = Visibility.Collapsed;
             btCancel.Visibility = Visibility.Visible;
             ProgressBar.Visibility = Visibility.Visible;
-            int x = await createMagicNumber();
 
-            btCreate.Visibility = Visibility.Visible;
+            int magicNumber = await createMagicNumberTask();
+           
+            /*
+            ProgressBar.Visibility = Visibility.Collapsed;
             btCancel.Visibility = Visibility.Collapsed;
+            btCreate.Visibility = Visibility.Visible;
+            */
 
-            mainContent.Opacity = 1;
+            numberBox.Text = "" + magicNumber;
         }
 
         private void Cancel_Number(object sender, RoutedEventArgs e)
         {
-
+            ProgressBar.Visibility = Visibility.Collapsed;
+            btCreate.Visibility = Visibility.Visible;
+            btCancel.Visibility = Visibility.Collapsed;
         }
 
-        public async Task<int> createMagicNumber()
+        async Task<int> createMagicNumberTask()
         {
+            return creator.CreateMagicNumber();
+
+            //return creator.CreateMagicNumber();  
             
-           DojoLib.MagicNumberCreator creator = new DojoLib.MagicNumberCreator();
-            mainContent.Opacity = 0.5;
-           // int magicNumber = creator.CreateMagicNumber();
-            //numberBox.Text = "" + magicNumber;
-            return 0;
         }
     }
 }

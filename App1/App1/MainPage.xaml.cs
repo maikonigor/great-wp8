@@ -24,6 +24,7 @@ namespace App1
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private string page;
         public MainPage()
         {
             this.InitializeComponent();
@@ -48,12 +49,12 @@ namespace App1
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            // retrieve an avatar image from the Web
             string url = UrlTextBox.Text;
             HttpWebRequest request =
                 (HttpWebRequest)HttpWebRequest.Create(url);
             request.BeginGetResponse(GetPageResponseCallBack, request);
             ContentGrid.Opacity = 0.5;
+            UrlTextBox.IsReadOnly = true;
             ProgressBar.Visibility = Visibility.Visible;
         }
 
@@ -67,12 +68,19 @@ namespace App1
                     WebResponse response = request.EndGetResponse(result);
                     Stream  receiveStream = response.GetResponseStream();
                     StreamReader reader = new StreamReader(receiveStream);
-                    string page = reader.ReadToEnd();
-                   Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    
+                    while(reader.Peek() >= 0){
+
+                       string page = reader.ReadLine();
+                       this.page += page;
+                    }
+
+                    Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
                     {
-                        BodyTextBlock.Text = page;
+                        BodyTextBlock.Text = this.page;
                         ProgressBar.Visibility = Visibility.Collapsed;
                         ContentGrid.Opacity = 1;
+                        UrlTextBox.IsReadOnly = false;
                     });
                     
                 }
@@ -83,6 +91,7 @@ namespace App1
                         BodyTextBlock.Text = "HResult: " + e.HResult + "\nMessage:" + e.Message;
                         ProgressBar.Visibility = Visibility.Collapsed;
                         ContentGrid.Opacity = 1;
+                        UrlTextBox.IsReadOnly = false;
                     });
                 }
 
